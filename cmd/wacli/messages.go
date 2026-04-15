@@ -2,8 +2,6 @@
 package main
 
 import (
-	"time"
-
 	"github.com/ekjotsinghmakhija/wacli/internal/config"
 	"github.com/ekjotsinghmakhija/wacli/internal/out"
 	"github.com/ekjotsinghmakhija/wacli/internal/store"

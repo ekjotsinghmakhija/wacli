@@ -1,8 +1,8 @@
+// cmd/wacli/auth.go
 package main
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/ekjotsinghmakhija/wacli/internal/config"
 	"github.com/ekjotsinghmakhija/wacli/internal/wa"
@@ -41,7 +41,7 @@ func newAuthCmd(f *rootFlags) *cobra.Command {
 			fmt.Println("Scan the QR code below using WhatsApp on your phone:")
 			for evt := range qrChan {
 				if evt.Event == "code" {
-					fmt.Println(evt.Code) // In a real TUI, use qrcode-terminal or similar here
+					fmt.Println(evt.Code)
 					fmt.Println("--- Waiting for scan ---")
 				} else {
 					fmt.Printf("Login event: %s\n", evt.Event)

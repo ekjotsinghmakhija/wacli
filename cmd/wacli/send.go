@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/ekjotsinghmakhija/wacli/internal/config"
+	"github.com/ekjotsinghmakhija/wacli/internal/out"
 	"github.com/ekjotsinghmakhija/wacli/internal/wa"
 	"github.com/spf13/cobra"
 	waProto "go.mau.fi/whatsmeow/binary/proto"
