@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 
 	"go.mau.fi/whatsmeow"
-	"go.mau.fi/whatsmeow/events"
+	"go.mau.fi/whatsmeow/types/events"
 )
 
 type MediaDownloader struct {

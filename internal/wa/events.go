@@ -1,7 +1,7 @@
 package wa
 
 import (
-	"go.mau.fi/whatsmeow/events"
+	"go.mau.fi/whatsmeow/types/events"
 )
 
 // EventRouter defines how the application core will consume whatsmeow events.

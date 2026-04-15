@@ -1,3 +1,4 @@
+// internal/wa/client.go
 package wa
 
 import (
@@ -25,7 +26,8 @@ type WAClient interface {
 }
 
 type clientImpl struct {
-	cli *whatsmeow.Client
+	cli         *whatsmeow.Client
+	sessionPath string
 }
 
 // New initializes an isolated whatsmeow client using a separate session database.
@@ -40,12 +42,14 @@ func New(storeDir string, debug bool) (WAClient, error) {
 	sessionDBPath := filepath.Join(storeDir, "session.db")
 	dsn := fmt.Sprintf("file:%s?_foreign_keys=on", sessionDBPath)
 
-	container, err := sqlstore.New("sqlite3", dsn, dbLog)
+	// Inject context.Background() for newer versions of sqlstore
+	container, err := sqlstore.New(context.Background(), "sqlite3", dsn, dbLog)
 	if err != nil {
 		return nil, fmt.Errorf("failed to init session store: %w", err)
 	}
 
-	deviceStore, err := container.GetFirstDevice()
+	// Inject context.Background() for GetFirstDevice
+	deviceStore, err := container.GetFirstDevice(context.Background())
 	if err != nil {
 		return nil, fmt.Errorf("failed to get device: %w", err)
 	}
@@ -53,7 +57,10 @@ func New(storeDir string, debug bool) (WAClient, error) {
 	clientLog := waLog.Stdout("Client", logLevel, true)
 	cli := whatsmeow.NewClient(deviceStore, clientLog)
 
-	return &clientImpl{cli: cli}, nil
+	return &clientImpl{
+		cli:         cli,
+		sessionPath: sessionDBPath,
+	}, nil
 }
 
 func (c *clientImpl) Connect() error {
@@ -73,10 +80,11 @@ func (c *clientImpl) IsLoggedIn() bool {
 }
 
 func (c *clientImpl) Logout() error {
-	err := c.cli.Logout()
+	// Inject context.Background() for Logout
+	err := c.cli.Logout(context.Background())
 	if err != nil {
 		// If logout fails, nuke the local session database to force clean state
-		_ = os.Remove(c.cli.Store.Database.Dialect())
+		_ = os.Remove(c.sessionPath)
 		return err
 	}
 	return nil

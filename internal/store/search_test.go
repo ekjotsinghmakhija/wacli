@@ -1,12 +1,14 @@
 package store
 
 import (
+	"path/filepath"
 	"testing"
 	"time"
 )
 
 func TestSearchMessages_EdgeCases(t *testing.T) {
-	db, err := Open("file::memory:?cache=shared")
+	dbPath := filepath.Join(t.TempDir(), "test.db")
+	db, err := Open(dbPath)
 	if err != nil {
 		t.Fatalf("failed to open memory db: %v", err)
 	}

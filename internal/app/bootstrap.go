@@ -6,7 +6,7 @@ import (
 
 	"github.com/ekjotsinghmakhija/wacli/internal/store"
 	"github.com/ekjotsinghmakhija/wacli/internal/wa"
-	"go.mau.fi/whatsmeow/events"
+	"go.mau.fi/whatsmeow/types/events"
 )
 
 func (a *App) ProcessHistorySync(evt *events.HistorySync) {
