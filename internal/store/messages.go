@@ -1,8 +1,7 @@
+// internal/store/messages.go
 package store
 
 import (
-	"fmt"
-	"strings"
 	"time"
 )
 

@@ -1,8 +1,7 @@
+// internal/store/types.go
 package store
 
 import (
-	"database/sql"
-	"errors"
 	"strings"
 	"time"
 )
