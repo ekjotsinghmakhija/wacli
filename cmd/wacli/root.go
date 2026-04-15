@@ -1,3 +1,4 @@
+// cmd/wacli/root.go
 package main
 
 import (
@@ -40,6 +41,8 @@ func execute(args []string) error {
 		newChatsCmd(&flags),
 		newMessagesCmd(&flags),
 		newSendCmd(&flags),
+		newSendFileCmd(&flags),
+		newDoctorCmd(&flags),
 	)
 
 	rootCmd.SetArgs(args)
