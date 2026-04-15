@@ -1,0 +1,22 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/dist/
+/wacli
+
+# Test artifact & Coverage
+*.test
+*.out
+coverage.*
+
+# Local Database & Media State
+*.db
+*.db-*
+/media/
+/store/
+
+# OS specific
+.DS_Store
