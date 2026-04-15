@@ -31,7 +31,7 @@ func (a *App) OnMessage(evt *events.Message) {
 }
 
 func (a *App) OnHistorySync(evt *events.HistorySync) {
-	// Action -> Implement in Phase 4b (History Ingestion)
+	a.ProcessHistorySync(evt)
 }
 
 func (a *App) OnReceipt(evt *events.Receipt) {
