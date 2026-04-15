@@ -33,7 +33,11 @@ func execute(args []string) error {
 	rootCmd.PersistentFlags().BoolVar(&flags.asJSON, "json", false, "output JSON instead of human-readable text")
 	rootCmd.PersistentFlags().DurationVar(&flags.timeout, "timeout", 5*time.Minute, "command timeout (non-sync commands)")
 
-	rootCmd.AddCommand(newVersionCmd())
+	rootCmd.AddCommand(
+		newVersionCmd(),
+		newAuthCmd(&flags),
+		newSyncCmd(&flags),
+	)
 
 	rootCmd.SetArgs(args)
 	if err := rootCmd.Execute(); err != nil {
