@@ -73,12 +73,12 @@ func newSendFileCmd(f *rootFlags) *cobra.Command {
 					return wrapErr(uploadErr, "upload image")
 				}
 				msg.ImageMessage = &waProto.ImageMessage{
-					Url:           proto.String(resp.URL),
+					URL:           proto.String(resp.URL),
 					DirectPath:    proto.String(resp.DirectPath),
 					MediaKey:      resp.MediaKey,
 					Mimetype:      proto.String(mimeType),
-					FileEncSha256: resp.FileEncSHA256,
-					FileSha256:    resp.FileSHA256,
+					FileEncSHA256: resp.FileEncSHA256,
+					FileSHA256:    resp.FileSHA256,
 					FileLength:    proto.Uint64(uint64(len(data))),
 				}
 			} else if strings.HasPrefix(mimeType, "video/") {
@@ -88,12 +88,12 @@ func newSendFileCmd(f *rootFlags) *cobra.Command {
 					return wrapErr(uploadErr, "upload video")
 				}
 				msg.VideoMessage = &waProto.VideoMessage{
-					Url:           proto.String(resp.URL),
+					URL:           proto.String(resp.URL),
 					DirectPath:    proto.String(resp.DirectPath),
 					MediaKey:      resp.MediaKey,
 					Mimetype:      proto.String(mimeType),
-					FileEncSha256: resp.FileEncSHA256,
-					FileSha256:    resp.FileSHA256,
+					FileEncSHA256: resp.FileEncSHA256,
+					FileSHA256:    resp.FileSHA256,
 					FileLength:    proto.Uint64(uint64(len(data))),
 				}
 			} else {
@@ -104,12 +104,12 @@ func newSendFileCmd(f *rootFlags) *cobra.Command {
 				}
 				fileName := filepath.Base(filePath)
 				msg.DocumentMessage = &waProto.DocumentMessage{
-					Url:           proto.String(resp.URL),
+					URL:           proto.String(resp.URL),
 					DirectPath:    proto.String(resp.DirectPath),
 					MediaKey:      resp.MediaKey,
 					Mimetype:      proto.String(mimeType),
-					FileEncSha256: resp.FileEncSHA256,
-					FileSha256:    resp.FileSHA256,
+					FileEncSHA256: resp.FileEncSHA256,
+					FileSHA256:    resp.FileSHA256,
 					FileLength:    proto.Uint64(uint64(len(data))),
 					Title:         proto.String(fileName),
 					FileName:      proto.String(fileName),
