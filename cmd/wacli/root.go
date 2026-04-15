@@ -37,6 +37,9 @@ func execute(args []string) error {
 		newVersionCmd(),
 		newAuthCmd(&flags),
 		newSyncCmd(&flags),
+		newChatsCmd(&flags),
+		newMessagesCmd(&flags),
+		newSendCmd(&flags),
 	)
 
 	rootCmd.SetArgs(args)
