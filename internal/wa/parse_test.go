@@ -15,10 +15,12 @@ func TestParseMessage_EdgeCases(t *testing.T) {
 	chatJID, _ := types.ParseJID("group@g.us")
 
 	baseInfo := types.MessageInfo{
+		MessageSource: types.MessageSource{
+			Chat:     chatJID,
+			Sender:   senderJID,
+			IsFromMe: false,
+		},
 		ID:        "TEST_ID",
-		Sender:    senderJID,
-		Chat:      chatJID,
-		IsFromMe:  false,
 		Timestamp: time.Now(),
 	}
 

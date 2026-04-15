@@ -26,10 +26,12 @@ func (a *App) ProcessHistorySync(evt *events.HistorySync) {
 
 			liveEvt := &events.Message{
 				Info: types.MessageInfo{
+					MessageSource: types.MessageSource{
+						Chat:     wa.ParseJID(chatJID),
+						Sender:   wa.ParseJID(msg.GetKey().GetParticipant()),
+						IsFromMe: msg.GetKey().GetFromMe(),
+					},
 					ID:        msg.GetKey().GetID(),
-					Chat:      wa.ParseJID(chatJID),
-					Sender:    wa.ParseJID(msg.GetKey().GetParticipant()),
-					IsFromMe:  msg.GetKey().GetFromMe(),
 					Timestamp: wa.ConvertTime(msg.GetMessageTimestamp()),
 				},
 				Message: msg.Message,
