@@ -6,17 +6,15 @@ import (
 
 	"github.com/ekjotsinghmakhija/wacli/internal/store"
 	"github.com/ekjotsinghmakhija/wacli/internal/wa"
+	"go.mau.fi/whatsmeow/types"
 	"go.mau.fi/whatsmeow/types/events"
 )
 
 func (a *App) ProcessHistorySync(evt *events.HistorySync) {
 	history := evt.Data
 	for _, conv := range history.GetConversations() {
-		chatJID := conv.GetId()
+		chatJID := conv.GetID()
 		name := conv.GetName()
-		if name == "" {
-			name = conv.GetPushName()
-		}
 
 		_ = a.db.UpsertChat(chatJID, "history", name, wa.ConvertTime(conv.GetConversationTimestamp()))
 
@@ -27,8 +25,8 @@ func (a *App) ProcessHistorySync(evt *events.HistorySync) {
 			}
 
 			liveEvt := &events.Message{
-				Info: events.MessageInfo{
-					ID:        msg.GetKey().GetId(),
+				Info: types.MessageInfo{
+					ID:        msg.GetKey().GetID(),
 					Chat:      wa.ParseJID(chatJID),
 					Sender:    wa.ParseJID(msg.GetKey().GetParticipant()),
 					IsFromMe:  msg.GetKey().GetFromMe(),
@@ -52,7 +50,7 @@ func (a *App) ProcessHistorySync(evt *events.HistorySync) {
 			})
 
 			if err != nil {
-				log.Printf("history sync upsert error: %s", err)
+				log.Printf("history sync upsert error: %v", err)
 			}
 		}
 	}

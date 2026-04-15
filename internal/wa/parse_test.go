@@ -14,7 +14,7 @@ func TestParseMessage_EdgeCases(t *testing.T) {
 	senderJID, _ := types.ParseJID("user@s.whatsapp.net")
 	chatJID, _ := types.ParseJID("group@g.us")
 
-	baseInfo := events.MessageInfo{
+	baseInfo := types.MessageInfo{
 		ID:        "TEST_ID",
 		Sender:    senderJID,
 		Chat:      chatJID,

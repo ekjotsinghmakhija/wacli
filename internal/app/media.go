@@ -47,28 +47,29 @@ func (m *MediaDownloader) worker(ctx context.Context) {
 		case <-ctx.Done():
 			return
 		case msg := <-m.jobs:
-			m.download(msg)
+			// Inject context into the download phase
+			m.download(ctx, msg)
 		}
 	}
 }
 
-func (m *MediaDownloader) download(evt *events.Message) {
+func (m *MediaDownloader) download(ctx context.Context, evt *events.Message) {
 	msg := evt.Message
 	var data []byte
 	var err error
 	var ext string
 
 	if doc := msg.GetDocumentMessage(); doc != nil {
-		data, err = m.client.Download(doc)
+		data, err = m.client.Download(ctx, doc)
 		ext = ".doc"
 	} else if img := msg.GetImageMessage(); img != nil {
-		data, err = m.client.Download(img)
+		data, err = m.client.Download(ctx, img)
 		ext = ".jpg"
 	} else if vid := msg.GetVideoMessage(); vid != nil {
-		data, err = m.client.Download(vid)
+		data, err = m.client.Download(ctx, vid)
 		ext = ".mp4"
 	} else if audio := msg.GetAudioMessage(); audio != nil {
-		data, err = m.client.Download(audio)
+		data, err = m.client.Download(ctx, audio)
 		ext = ".ogg"
 	}
 
